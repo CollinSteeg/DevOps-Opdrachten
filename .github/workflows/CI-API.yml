@@ -1,11 +1,22 @@
-name: 'coverage'
+name: 'API - Code Coverage'
 on:
     pull_request:
         branches:
             - main
+    push:
+        branches:
+            - main
+        paths:
+            - 'api/**'
 jobs:
     coverage:
         runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: ./api
         steps:
             - uses: actions/checkout@v3
             - uses: ArtiomTr/jest-coverage-report-action@v2
+              with:
+                  working-directory: ./api
+                  threshold: 80
